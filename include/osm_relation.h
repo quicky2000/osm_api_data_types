@@ -5,7 +5,7 @@
 #include "osm_relation_member.h"
 #include <vector>
 
-namespace osm_diff_watcher
+namespace osm_api_data_types
 {
   class osm_relation: public osm_core_element
   {

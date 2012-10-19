@@ -6,7 +6,7 @@
 #include <cassert>
 #include <iostream>
 
-namespace osm_diff_watcher
+namespace osm_api_data_types
 {
   class osm_change
   {

@@ -4,7 +4,7 @@
 #include "osm_object.h"
 #include "osm_bounding_box.h"
 
-namespace osm_diff_watcher
+namespace osm_api_data_types
 {
   class osm_changeset: public osm_object
   {
@@ -35,7 +35,7 @@ namespace osm_diff_watcher
   //------------------------------------------------------------------------------
   inline std::ostream & operator<<(std::ostream & p_stream,const osm_changeset & p_changeset)
     {
-      p_stream << "changeset id=" << p_changeset.get_id() << " created_at=" << p_changeset.get_created_at() << " closed_at=" << p_changeset.get_closed_at() << " open=" << p_changeset.is_open() << std::endl ;
+      p_stream << "changeset id=" << p_changeset.get_id() << " user=\"" << p_changeset.get_user() << "\" created_at=\"" << p_changeset.get_created_at() << "\" closed_at=\"" << p_changeset.get_closed_at() << "\" open=" << p_changeset.is_open() << std::endl ;
       std::string l_tags_str;
       p_changeset.tags_to_string(l_tags_str);
       p_stream << l_tags_str ;

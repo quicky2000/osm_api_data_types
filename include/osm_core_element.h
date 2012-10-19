@@ -3,7 +3,7 @@
 
 #include "osm_object.h"
 
-namespace osm_diff_watcher
+namespace osm_api_data_types
 {
   class osm_core_element: public osm_object
   {

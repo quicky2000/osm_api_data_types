@@ -1,7 +1,7 @@
 #ifndef _OSM_BOUNDING_BOX_H_
 #define _OSM_BOUNDING_BOX_H_
 
-namespace osm_diff_watcher
+namespace osm_api_data_types
 {
   class osm_bounding_box
   {
