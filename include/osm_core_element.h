@@ -28,8 +28,11 @@ namespace osm_api_data_types
     inline const t_osm_id & get_changeset(void)const;
 
     // Utility
+    virtual const osm_core_element::t_osm_type get_core_type(void)const=0;
+    virtual const std::string & get_core_type_str(void)const=0;
     static inline osm_core_element::t_osm_type get_osm_type(const std::string & p_name);
     static inline const std::string & get_osm_type_str(const osm_core_element::t_osm_type & p_type);
+    virtual inline ~osm_core_element(void){}
   private:
     bool m_visible;
     std::string m_timestamp;

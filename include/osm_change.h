@@ -5,6 +5,7 @@
 #include <string>
 #include <cassert>
 #include <iostream>
+#include "osm_core_element.h"
 
 namespace osm_api_data_types
 {
@@ -14,16 +15,16 @@ namespace osm_api_data_types
   public:
     typedef enum {CREATION,MODIFICATION,DELETION,INTERNAL_INVALID}t_osm_change_type;
     virtual const t_osm_change_type get_type(void)const=0;
+    virtual const osm_core_element::t_osm_type get_object_type(void)const=0;
     inline static t_osm_change_type get_change_type(const std::string & p_name);
     inline static const std::string & get_change_type_str(const t_osm_change_type & p_type);
-
+    virtual const osm_core_element * const get_core_element(void)const=0;
     virtual void display(std::ostream & p_stream)const=0;
     inline virtual ~osm_change(void){}
-
   private:
     static std::map<std::string,osm_change::t_osm_change_type> m_osm_change_types;
     static std::map<osm_change::t_osm_change_type,std::string> m_osm_change_types_str;
-    };
+  };
 
   //------------------------------------------------------------------------------
   inline std::ostream & operator<<(std::ostream & p_stream,const osm_change & p_change)
@@ -70,6 +71,9 @@ namespace osm_api_data_types
     inline const osm_change::t_osm_change_type get_type(void)const;
     inline ~osm_change_generic(void);
     inline void display(std::ostream & p_stream)const;
+    inline const T * const get_object(void)const;
+    inline const osm_core_element::t_osm_type get_object_type(void)const;
+    inline const osm_core_element * const get_core_element(void)const;
   private:
     const T * const m_object;
     const osm_change::t_osm_change_type m_type;
@@ -78,9 +82,22 @@ namespace osm_api_data_types
   //------------------------------------------------------------------------------
   template<class T>
     inline void osm_change_generic<T>::display(std::ostream & p_stream)const
-      {
-        p_stream << get_change_type_str(m_type) << " => " << * m_object;
-      }
+    {
+      p_stream << get_change_type_str(m_type) << " => " << * m_object;
+    }
+
+  //------------------------------------------------------------------------------
+  template<class T>
+    const osm_core_element::t_osm_type osm_change_generic<T>::get_object_type(void)const
+    {
+      return T::get_type();
+    }
+  //------------------------------------------------------------------------------
+  template<class T>
+    const osm_core_element * const osm_change_generic<T>::get_core_element(void)const
+    {
+      return m_object;
+    }
 
   //------------------------------------------------------------------------------
   template<class T>
@@ -88,6 +105,13 @@ namespace osm_api_data_types
     m_object(p_object),
     m_type(p_change_type)
       {
+      }
+
+    //------------------------------------------------------------------------------
+    template<class T>
+      const T * const osm_change_generic<T>::get_object(void)const
+      {
+        return m_object;
       }
 
     //------------------------------------------------------------------------------

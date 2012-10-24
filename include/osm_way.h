@@ -23,7 +23,10 @@ namespace osm_api_data_types
     inline const std::vector<osm_core_element::t_osm_id> & get_node_refs(void)const;
 
     // Utilitie
+    inline const osm_core_element::t_osm_type get_core_type(void)const;
+    inline const std::string & get_core_type_str(void)const;
     static inline const std::string & get_type_str(void);
+    static inline const osm_core_element::t_osm_type get_type(void);
   private:
     std::vector<osm_core_element::t_osm_id> m_node_refs;
     static const std::string m_type_str;
@@ -48,6 +51,12 @@ namespace osm_api_data_types
 
    //------------------------------------------------------------------------------
     const std::string & osm_way::get_type_str(void)
+      {
+        return m_type_str;
+      }
+
+   //------------------------------------------------------------------------------
+    const std::string & osm_way::get_core_type_str(void)const
       {
         return m_type_str;
       }
@@ -107,6 +116,16 @@ namespace osm_api_data_types
     const std::vector<osm_core_element::t_osm_id> & osm_way::get_node_refs(void)const
       {
         return m_node_refs;
+      }
+   //------------------------------------------------------------------------------
+    const osm_core_element::t_osm_type osm_way::get_type(void)
+      {
+        return osm_core_element::WAY;
+      }
+   //------------------------------------------------------------------------------
+    const osm_core_element::t_osm_type osm_way::get_core_type(void)const
+      {
+        return osm_core_element::WAY;
       }
 }
 

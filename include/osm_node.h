@@ -26,8 +26,10 @@ namespace osm_api_data_types
     inline const float & get_lon(void)const;
 
     // Utilitie
+    inline const osm_core_element::t_osm_type get_core_type(void)const;
+    inline const std::string & get_core_type_str(void)const;
     static inline const std::string & get_type_str(void);
-
+    static inline const osm_core_element::t_osm_type get_type(void);
   private:
     float m_lat;
     float m_lon;
@@ -71,6 +73,12 @@ namespace osm_api_data_types
       }
 
     //------------------------------------------------------------------------------
+    const std::string & osm_node::get_core_type_str(void)const
+      {
+        return m_type_str;
+      }
+
+    //------------------------------------------------------------------------------
     const float & osm_node::get_lat(void)const
       {
 	return m_lat;
@@ -80,6 +88,17 @@ namespace osm_api_data_types
     const float & osm_node::get_lon(void)const
       {
 	return m_lon;
+      }
+    //------------------------------------------------------------------------------
+    const osm_core_element::t_osm_type osm_node::get_type(void)
+      {
+        return osm_core_element::NODE;
+      }
+
+    //------------------------------------------------------------------------------
+    const osm_core_element::t_osm_type osm_node::get_core_type(void)const
+      {
+        return osm_core_element::NODE;
       }
 }
 #endif // _OSM_NODE_H_
