@@ -35,7 +35,7 @@ namespace osm_api_data_types
    //------------------------------------------------------------------------------
   inline std::ostream & operator<<(std::ostream & p_stream,const osm_way & p_way)
     {
-      p_stream << "way id=" << p_way.get_id() << " version=" << p_way.get_version() << std::endl ;
+      p_stream << "way " << *((osm_core_element*)&p_way) << std::endl ;
       const std::vector<osm_core_element::t_osm_id> & l_node_refs = p_way.get_node_refs();
       for(std::vector<osm_core_element::t_osm_id>::const_iterator l_iter = l_node_refs.begin();
           l_iter != l_node_refs.end();

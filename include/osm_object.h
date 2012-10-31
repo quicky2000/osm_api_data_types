@@ -13,6 +13,7 @@ namespace osm_api_data_types
 {
   class osm_object
   {
+    friend std::ostream & operator<<(std::ostream & p_stream,const osm_object & p_object);
   public:
     typedef uint64_t t_osm_id;
 
@@ -44,6 +45,12 @@ namespace osm_api_data_types
 
   };
 
+  //------------------------------------------------------------------------------
+  inline std::ostream & operator<<(std::ostream & p_stream,const osm_object & p_object)
+    {
+      p_stream << "user_id=" << p_object.m_user_id << " user=" << p_object.m_user ;
+      return p_stream;
+    }
   // Constructor
   //----------------------------------------------------------------------------
   osm_object::osm_object(const t_osm_id  & p_id,

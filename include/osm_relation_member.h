@@ -24,7 +24,7 @@ namespace osm_api_data_types
   //------------------------------------------------------------------------------
   inline std::ostream & operator<<(std::ostream & p_stream,const osm_relation_member & p_relation_member)
     {
-      p_stream << "relation_member type=" << osm_core_element::get_osm_type_str(p_relation_member.m_type) << " object_ref=" << p_relation_member.m_object_ref << " role=" << p_relation_member.m_role << std::endl ;
+      p_stream << "relation_member type=" << osm_core_element::get_osm_type_str(p_relation_member.m_type) << " object_ref=" << p_relation_member.m_object_ref << " role=\"" << p_relation_member.m_role << "\"" << std::endl ;
       return p_stream;
     }
 

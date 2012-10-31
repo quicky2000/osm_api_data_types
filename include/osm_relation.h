@@ -39,7 +39,7 @@ namespace osm_api_data_types
   //------------------------------------------------------------------------------
   inline std::ostream & operator<<(std::ostream & p_stream,const osm_relation & p_relation)
     {
-      p_stream << "relation id=" << p_relation.get_id() << " version=" << p_relation.get_version() << std::endl ;
+      p_stream << "relation " << *((osm_core_element*)&p_relation) << std::endl ;
       const std::vector<osm_relation_member*> & l_members = p_relation.get_members();
       for(std::vector<osm_relation_member*>::const_iterator l_iter = l_members.begin();
           l_iter != l_members.end();

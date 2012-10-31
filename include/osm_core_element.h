@@ -7,6 +7,7 @@ namespace osm_api_data_types
 {
   class osm_core_element: public osm_object
   {
+    friend std::ostream & operator<<(std::ostream & p_stream,const osm_core_element & p_node);
   public:
     typedef uint32_t t_osm_version;
     // To be replaced by typedef enum class {NODE=0,WAY,RELATION} t_osm_type; to follow C++0x standard
@@ -43,6 +44,12 @@ namespace osm_api_data_types
     static std::map<t_osm_type,std::string> m_osm_types_str;
   };
 
+  //------------------------------------------------------------------------------
+  inline std::ostream & operator<<(std::ostream & p_stream,const osm_core_element & p_core_element)
+    {
+      p_stream << "id=" << p_core_element.get_id() << " version=" << p_core_element.m_version << " changeset=" << p_core_element.m_changeset << " timestamp=" << p_core_element.m_timestamp << " " << *((osm_object*)&p_core_element);
+      return p_stream;
+    }
   //----------------------------------------------------------------------------
   osm_core_element::t_osm_type osm_core_element::get_osm_type(const std::string & p_name)
     {

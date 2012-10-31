@@ -39,7 +39,7 @@ namespace osm_api_data_types
   //------------------------------------------------------------------------------
   inline std::ostream & operator<<(std::ostream & p_stream,const osm_node & p_node)
     {
-      p_stream << "node id=" << p_node.get_id() << " version=" << p_node.get_version() << std::endl ;
+      p_stream << "node " << *((osm_core_element*)&p_node) << std::endl ;
       if(p_node.is_visible())
         {
           p_stream << "  lat=" << p_node.m_lat << " lon=" << p_node.m_lon << std::endl ;
