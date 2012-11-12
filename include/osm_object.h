@@ -103,7 +103,10 @@ namespace osm_api_data_types
     void osm_object::add_tag(const std::string & p_name, const std::string & p_value)
     {
       std::map<std::string,std::string>::const_iterator l_iter = m_tags.find(p_name);
-      assert(l_iter ==m_tags.end());
+      if(l_iter != m_tags.end())
+        {
+          std::cout << "WARNING : there is already a tag with name \"" << p_name << "\". It can be due to bad minute diff formatting" << std::endl ;
+        }
       m_tags.insert(make_pair(p_name,p_value));
     }
     //----------------------------------------------------------------------------
