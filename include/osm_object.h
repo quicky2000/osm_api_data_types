@@ -23,7 +23,6 @@
 #include <map>
 #include <cassert>
 
-// TO be replaced by #include <cstdint> to follow C++0x standard
 #include <inttypes.h>
 #include <iostream>
 
