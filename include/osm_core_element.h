@@ -78,7 +78,12 @@ namespace osm_api_data_types
           m_osm_types.insert(std::map<std::string,t_osm_type>::value_type("relation",osm_core_element::RELATION));
         }
       std::map<std::string,t_osm_type>::const_iterator l_iter = m_osm_types.find(p_name);
-      assert(m_osm_types.end() != l_iter);
+      if(m_osm_types.end() == l_iter) 
+	{
+	  std::stringstream l_stream;
+	  l_stream << "ERROR : Unknown core element type with name \"" << p_name << "\"" ;
+	  throw quicky_exception::quicky_logic_exception(l_stream.str(),__LINE__,__FILE__);
+	}
       return l_iter->second;
     }
 
@@ -92,7 +97,12 @@ namespace osm_api_data_types
           m_osm_types_str.insert(std::map<t_osm_type,std::string>::value_type(osm_core_element::RELATION,"relation"));
         }
       std::map<t_osm_type,std::string>::const_iterator l_iter = m_osm_types_str.find(p_type);
-      assert(m_osm_types_str.end() != l_iter);
+      if(m_osm_types_str.end() == l_iter)
+	{
+	  std::stringstream l_stream;
+	  l_stream << "ERROR : Unknown core element type \"" << p_type << "\"" ;
+	  throw quicky_exception::quicky_logic_exception(l_stream.str(),__LINE__,__FILE__);
+	}
       return l_iter->second;
     }
 

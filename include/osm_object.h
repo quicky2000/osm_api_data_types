@@ -19,12 +19,13 @@
 #ifndef _OSM_OBJECT_H_
 #define _OSM_OBJECT_H_
 
+#include "quicky_exception.h"
 #include <string>
 #include <map>
 #include <cassert>
-
 #include <inttypes.h>
 #include <iostream>
+#include <sstream>
 
 namespace osm_api_data_types
 {
@@ -112,21 +113,36 @@ namespace osm_api_data_types
     void osm_object::remove_tag(const std::string & p_name)
     {
       std::map<std::string,std::string>::iterator l_iter = m_tags.find(p_name);
-      assert(l_iter != m_tags.end());
+      if(m_tags.end() == l_iter)
+	{
+	  std::stringstream l_stream;
+	  l_stream << "ERROR : you try to remove tag \"" << p_name << "\" which doesn't exist";
+	  throw quicky_exception::quicky_logic_exception(l_stream.str(),__LINE__,__FILE__);
+	}
       m_tags.erase(l_iter);
     }
     //----------------------------------------------------------------------------
     const std::string & osm_object::get_tag_value(const std::string & p_name)const
       {
 	std::map<std::string,std::string>::const_iterator l_iter = m_tags.find(p_name);
-	assert(l_iter != m_tags.end());
+	if(m_tags.end() == l_iter)
+	  {
+	    std::stringstream l_stream;
+	    l_stream << "ERROR : you try to get value of tag \"" << p_name << "\" which doesn't exist";
+	  throw quicky_exception::quicky_logic_exception(l_stream.str(),__LINE__,__FILE__);
+	  }
 	return l_iter->second;
       }
     //----------------------------------------------------------------------------
     void osm_object::modify_tag_value(const std::string & p_name,const std::string & p_value)
     {
       std::map<std::string,std::string>::iterator l_iter = m_tags.find(p_name);
-      assert(l_iter != m_tags.end());
+      if(m_tags.end() == l_iter)
+	{
+	  std::stringstream l_stream;
+	  l_stream << "ERROR : you try to modify value of tag \"" << p_name << "\" which doesn't exist";
+	  throw quicky_exception::quicky_logic_exception(l_stream.str(),__LINE__,__FILE__);
+	  }
       l_iter->second = p_value;
     }
 

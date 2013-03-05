@@ -19,11 +19,13 @@
 #ifndef _OSM_CHANGE_H_
 #define _OSM_CHANGE_H_
 
+#include "osm_core_element.h"
+#include "quicky_exception.h"
 #include <map>
 #include <string>
 #include <cassert>
 #include <iostream>
-#include "osm_core_element.h"
+#include <sstream>
 
 namespace osm_api_data_types
 {
@@ -61,7 +63,12 @@ namespace osm_api_data_types
           m_osm_change_types.insert(std::map<std::string,osm_change::t_osm_change_type>::value_type("delete",osm_change::DELETION));
         }
       std::map<std::string,osm_change::t_osm_change_type>::const_iterator l_iter = m_osm_change_types.find(p_name);
-      assert(l_iter != m_osm_change_types.end());
+      if(m_osm_change_types.end() == l_iter)
+        {
+          std::stringstream l_stream;
+          l_stream << "No osm change type know with name \"" << p_name << "\"" << std::endl ;
+          throw quicky_exception::quicky_logic_exception(l_stream.str(),__LINE__,__FILE__);
+        }
       return l_iter->second;
     }
   
@@ -75,7 +82,14 @@ namespace osm_api_data_types
           m_osm_change_types_str.insert(std::map<osm_change::t_osm_change_type,std::string>::value_type(osm_change::DELETION,"delete"));
         }
       std::map<osm_change::t_osm_change_type,std::string>::const_iterator l_iter = m_osm_change_types_str.find(p_type);
-      assert(l_iter != m_osm_change_types_str.end());
+
+      if(m_osm_change_types_str.end() == l_iter)
+        {
+          std::stringstream l_stream;
+          l_stream << "No osm change type name for type " << p_type << std::endl ;
+          throw quicky_exception::quicky_logic_exception(l_stream.str(),__LINE__,__FILE__);
+        }
+
       return l_iter->second;
     }
   
